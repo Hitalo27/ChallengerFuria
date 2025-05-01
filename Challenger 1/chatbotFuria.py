@@ -128,16 +128,18 @@ async def handle_all(message: types.Message):
                     await db.commit()
                 await message.answer("✅ Acertou! Agora envie seu CPF para cadastro no sorteio:")
             else:
-                await message.answer("❌ Quase! Quer tentar de novo? (Sim/Não)")
-
+                pergunta_quiz = "Quem é o presidente da Kings League? \n1 - Gerard Piqué \n2 - Sergio Agüero \n3 - Ronaldinho Gaúcho"
+                await message.answer(f"❌ Errou! Vamos tentar de novo! {pergunta_quiz}")
+                    
         elif user[0] == 'Jogos':
-            if text == '1':
+            if text == '1': 
                 async with aiosqlite.connect(DB_FILE) as db:
                     await db.execute('UPDATE usuarios SET acertou_quiz = 1 WHERE user_id = ?', (user_id,))
                     await db.commit()
                 await message.answer("✅ Acertou! Agora escolha qual jogo você quer acompanhar ao vivo: \n1 - LoL \n2 - CS \n3 - Valorant")
             else:
-                await message.answer("❌ Quase! Quer tentar de novo? (Sim/Não)")
+                pergunta_quiz = "Qual jogador da FURIA é conhecido como 'Rei da Mira'? \n1 - KSCERATO \n2 - yuurih \n3 - FalleN"
+                await message.answer(f"❌ Errou! Vamos tentar de novo! {pergunta_quiz}")
 
     elif user[2] == 0:
         if len(text) == 11 and text.isdigit():
